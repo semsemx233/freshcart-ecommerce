@@ -27,14 +27,14 @@ const MainSlider = () => {
                 <div className="row g-0">
                     <div className="col-md-8">
                     <Slider {...settings}>
-                        <img src={img3} alt="" height={486} />
-                        <img src={img2} alt="" height={486} />
-                        <img src={img1} alt="" height={486} />
+                        <img src={img3} alt="" height={565} />
+                        <img src={img2} alt="" height={565} />
+                        <img src={img1} alt="" height={565} />
                     </Slider>
                     </div>
                     <div className="col-md-4">
-                        <img src={img2} className='w-100' alt="" />
-                        <img src={img1} className='w-100' alt="" />
+                        <img src={img2} className='w-100' alt="" height={282.5}/>
+                        <img src={img1} className='w-100' alt="" height={282.5}/>
                     </div>
                 </div>
             </div>
