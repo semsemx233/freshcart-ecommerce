@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom';
 import LayOut from './Components/LayOut/LayOut';
 import Home from './Components/Home/Home';
 import Products from './Components/Products/Products';
@@ -24,7 +24,7 @@ function App() {
 
   let { setToken } = useContext(TokenContext)
 
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
       path: '', element: <LayOut />, children: [
         { path: '', element: <ProtectedRoutes> <Home /> </ProtectedRoutes> },
