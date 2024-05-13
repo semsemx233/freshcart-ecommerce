@@ -4,15 +4,15 @@ import { createContext, useEffect, useState } from "react";
 
 export let CartContext = createContext()
 
-let headers = {
-    token: localStorage.getItem('userToken')
-}
+
 
 function addToCart(id) {
     return axios.post('https://ecommerce.routemisr.com/api/v1/cart', {
         productId: id
     }, {
-        headers
+        headers: {
+            token: localStorage.getItem('userToken')
+        }
     }).then((res) => res).catch((err) => err)
 }
 
@@ -20,13 +20,17 @@ function addToWishList(id) {
     return axios.post('https://ecommerce.routemisr.com/api/v1/wishlist', {
         productId: id
     }, {
-        headers
+        headers: {
+            token: localStorage.getItem('userToken')
+        }
     }).then((res) => res).catch((err) => err)
 }
 
 function getCart() {
     return axios.get('https://ecommerce.routemisr.com/api/v1/cart', {
-        headers
+        headers: {
+            token: localStorage.getItem('userToken')
+        }
     }
     )
         .then((res) => res)
@@ -39,8 +43,8 @@ function getWishList() {
             token: localStorage.getItem('userToken')
         }
     })
-    .then((res) => res)
-    .catch((err) => err);
+        .then((res) => res)
+        .catch((err) => err);
 }
 
 
@@ -51,7 +55,9 @@ function updateProductQuantity(id, count) {
             count
         },
         {
-            headers
+            headers: {
+                token: localStorage.getItem('userToken')
+            }
         }
     )
         .then((res) => res)
@@ -60,7 +66,9 @@ function updateProductQuantity(id, count) {
 
 function deleteProductFromCart(id) {
     return axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${id}`, {
-        headers
+        headers: {
+            token: localStorage.getItem('userToken')
+        }
     }
     )
         .then((res) => res)
@@ -69,7 +77,9 @@ function deleteProductFromCart(id) {
 
 function deleteProductFromWishList(id) {
     return axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${id}`, {
-        headers
+        headers: {
+            token: localStorage.getItem('userToken')
+        }
     }
     )
         .then((res) => res)
@@ -90,7 +100,9 @@ export default function CartContextProvider(props) {
                 shippingAddress
             },
             {
-                headers
+                headers: {
+                    token: localStorage.getItem('userToken')
+                }
             }
         )
             .then((res) => res)
@@ -111,14 +123,12 @@ export default function CartContextProvider(props) {
 
     useEffect(() => {
         if (localStorage.getItem('userToken') != null) {
-            headers = {
-            token: localStorage.getItem('userToken')
-        };
+
             getInitialCart()
             getInitialWishList()
         }
 
-    }, [headers])
+    }, [])
 
     return <CartContext.Provider value={{ addToCart, addToWishList, getCart, getWishList, deleteProductFromCart, deleteProductFromWishList, updateProductQuantity, onlinePayment, numOfCartItems, setNumOfCartItems, numOfWishItems, setNumOfWishItems }}>
         {props.children}
