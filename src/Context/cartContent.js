@@ -35,12 +35,14 @@ function getCart() {
 
 function getWishList() {
     return axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
-        headers
-    }
-    )
-        .then((res) => res)
-        .catch((err) => err)
+        headers: {
+            token: localStorage.getItem('userToken')
+        }
+    })
+    .then((res) => res)
+    .catch((err) => err);
 }
+
 
 
 function updateProductQuantity(id, count) {
@@ -109,11 +111,14 @@ export default function CartContextProvider(props) {
 
     useEffect(() => {
         if (localStorage.getItem('userToken') != null) {
+            headers = {
+            token: localStorage.getItem('userToken')
+        };
             getInitialCart()
             getInitialWishList()
         }
 
-    }, [])
+    }, [headers])
 
     return <CartContext.Provider value={{ addToCart, addToWishList, getCart, getWishList, deleteProductFromCart, deleteProductFromWishList, updateProductQuantity, onlinePayment, numOfCartItems, setNumOfCartItems, numOfWishItems, setNumOfWishItems }}>
         {props.children}
